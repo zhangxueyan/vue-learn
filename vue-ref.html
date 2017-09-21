@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>vue-ref</title>
+    <script src="https://unpkg.com/vue"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="app">
+      <ul>
+        <li v-for="item in items" ref="refContent">{{item}}</li>
+     </ul>
+    </div>
+    <script>
+     var vm = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!',
+        items:['aa','bb','cc']
+      },
+      created: function() {
+       this.$nextTick(() => {
+        console.log(this)
+        console.log(this.$refs.refContent)
+        })
+      }
+     })
+    </script>
+</body>
+</html>

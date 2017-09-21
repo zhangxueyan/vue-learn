@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <p v-bind:title="message" v-text="message"></p>
+
+    <p v-if="seen">ok</p>
+
+    <ul>
+    	<li v-for = "item in items">{{item.text}}</li>
+    </ul>
+
+    <p @click = "add">add</p>
+
+    <ol>
+    	<todo-item v-for="list in lists" v-bind:todo="list" v-bind:key="list.id">{{list.text}}</todo-item>
+    </ol>
+
+    <my-component :msg = "message"></my-component>
+
+    <my-component msg = "zheshizujian"></my-component>
+
+
+
+    <div id="counter">
+      <p>{{total}}</p>
+      <button-counter v-on:increment="incrementTotal"></button-counter>
+      <button-counter v-on:increment="incrementTotal"></button-counter>
+    </div>
+    
+
+    <hello-world></hello-world>
+    <script type="text/x-template" id="hello-world-template">
+      <p>hello world hello gilr</p>
+    </script>
+
+
+
+
+    <p>{{obj.a}}</p>
+
+    <p>{{obj.b}}</p>
+    
+  </div>
+
+  <script>
+  	window.onload = function(){
+      
+      Vue.component("hello-world",{
+        template:"#hello-world-template"
+      })
+
+  		Vue.component('button-counter',{
+  			template: '<button v-on:click="increment">{{counter}}</button>',
+  			data:function(){
+  				return {
+  					counter:0
+  				}
+  			},
+  			methods:{
+  				increment:function () {
+  					this.counter+=1
+  					this.$emit("increment")
+  				}
+  			}
+  		})
+
+  		Vue.component('my-component',{
+  			props:['msg'],
+  			template:'<p>{{msg}}</p>'
+  		})
+
+
+  		Vue.component('todo-item',{
+  			props:['todo'],
+  			template:'<li>{{todo.text}}</li>'
+  		})
+  		var app = new Vue({
+  			el: '#app',
+  			data: {
+  				message: 'Hello window!',
+  				seen:false,
+  				items:[{text:"hellow"}],
+  				lists:[
+  				  {id:0,text:"蔬菜22"},
+  				  {id:1,text:"奶酪"},
+  				  {id:2,text:"其他"},
+  				],
+  				total:0,
+          obj:{
+            a:1,
+            b:1
+          }
+  			},
+  			methods:{
+  				add:function(){
+  					this.items.push({text:"helloe"})
+  				},
+  				incrementTotal:function(){
+  					this.total+= 1
+  				}
+  			}
+  		}) 
+      Vue.set(app.obj,'a',10)
+      app.$set(app.obj,'b',25)
+  	}
+  </script>
+</body>
+</html>
